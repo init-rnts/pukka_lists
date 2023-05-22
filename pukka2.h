@@ -3,9 +3,8 @@
 #include <stdlib.h>
 
 #define STRINGIFY_HELPER(x) #x
-#define createPukkaList(T) (((__typeof__ (T) == __typeof__ (const char) || __typeof__ (T) == __typeof__ (const char*)) \
-							&& STRINGIFY_HELPER(T)[0] == '"' ) ? createPukkaListError() : createPukkaListInternal(sizeof(T)))
-//#define pushPukka(X, Y) pushPukkaInternal(&X, Y)
+
+#define createPukkaList(T) STRINGIFY_HELPER(T)[0] == '"' ? createPukkaListInternal(sizeof(char)) : createPukkaListInternal(sizeof(T))
 
 //Defining node of the list which contains a pointer to data to be added and a pointer to next node of the list.
 
@@ -37,16 +36,13 @@ pukkaList createPukkaListInternal(size_t element_size) {
 	pl.length = 0;
 
 	return pl; //Return the list.
-
+	
 }
-
-void createPukkaListError() {
+int createPukkaListError() {
 
 	printf("Hata");
 
 	return EXIT_FAILURE;
 }
-
-//void pushPukkaInternal(pukkaList* pl, )
 
 #endif
