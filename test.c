@@ -9,7 +9,7 @@ struct x {
 
 int main () {
 
-    pukkaList sample = createPukkaList("x");
+    pukkaList sample = createPukkaList(5.12);
 
     printf("%d\n", sample.element_size);
     printf("%d\n", sample.length);
