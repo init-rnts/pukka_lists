@@ -1,10 +1,13 @@
 #ifndef PUKKA_H
 #define PUKKA_H
 #include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
 
 #define STRINGIFY_HELPER(x) #x
 
-#define createPukkaList(T) STRINGIFY_HELPER(T)[0] == '"' ? createPukkaListInternal(sizeof(char)) : createPukkaListInternal(sizeof(T))
+#define createPukkaList(T) _Generic((T), default: createPukkaListInternal)(sizeof(T))
 
 //Defining node of the list which contains a pointer to data to be added and a pointer to next node of the list.
 
@@ -27,22 +30,24 @@ typedef struct PUKKA_LIST {
 
 //Function to create a pukkaList
 
-pukkaList createPukkaListInternal(size_t element_size) {
+pukkaList* createPukkaListInternal(size_t element_size) {
 
-	pukkaList pl;
-	pl.headNode = NULL;
-	pl.endNode = NULL;
-    pl.element_size = element_size;
-	pl.length = 0;
+	if (element_size == 0) {
 
-	return pl; //Return the list.
-	
-}
-int createPukkaListError() {
+		printf("Hata");
+		return NULL;
 
-	printf("Hata");
+	} else {
 
-	return EXIT_FAILURE;
+		pukkaList* pl = (pukkaList*) malloc(sizeof(pukkaList));
+		pl->headNode = NULL;
+		pl->endNode = NULL;
+		pl->element_size = element_size;
+		pl->length = 0;
+
+		return pl; //Return the list.
+	}
+
 }
 
 #endif
