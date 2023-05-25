@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define STRINGIFY_HELPER(x) #x
 
-#define createPukkaList(T) _Generic((T), default: createPukkaListInternal)(sizeof(T))
+#define createPukkaList(T) strcmp(STRINGIFY_HELPER(T), "int") ? createPukkaListError(__LINE__) : createPukkaListInternal(sizeof(T))
 
 //Defining node of the list which contains a pointer to data to be added and a pointer to next node of the list.
 
@@ -32,21 +33,21 @@ typedef struct PUKKA_LIST {
 
 pukkaList* createPukkaListInternal(size_t element_size) {
 
-	if (element_size == 0) {
+	pukkaList* pl = (pukkaList*) malloc(sizeof(pukkaList));
+	pl->headNode = NULL;
+	pl->endNode = NULL;
+	pl->element_size = element_size;
+	pl->length = 0;
 
-		printf("Hata");
-		return NULL;
+	return pl; //Return the list.
 
-	} else {
+}
 
-		pukkaList* pl = (pukkaList*) malloc(sizeof(pukkaList));
-		pl->headNode = NULL;
-		pl->endNode = NULL;
-		pl->element_size = element_size;
-		pl->length = 0;
+pukkaList* createPukkaListError(int line) {
 
-		return pl; //Return the list.
-	}
+	printf("Error in line %d: \'You must use a defined data type!\'\n", line);
+	getch();
+	return NULL;
 
 }
 

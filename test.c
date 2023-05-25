@@ -9,12 +9,12 @@ struct x {
 
 int main () {
 
-    pukkaList* sample = createPukkaList(15);
+    pukkaList* sample = createPukkaList(int);
 
-    /*printf("%d\n", sample->element_size);
+    printf("%d\n", sample->element_size);
     printf("%d\n", sample->length);
     printf("%p\n", sample->headNode);
-    printf("%p\n\n", sample->endNode);*/
+    printf("%p\n\n", sample->endNode);
 
     getch();
     return 0;
