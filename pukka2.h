@@ -8,7 +8,8 @@
 
 #define STRINGIFY_HELPER(x) #x
 
-#define createPukkaList(T) strcmp(STRINGIFY_HELPER(T), "int") ? createPukkaListError(__LINE__) : createPukkaListInternal(sizeof(T))
+#define createPukkaList(T) strcmp(STRINGIFY_HELPER(T), "int") ? ERROR_CODE=0 : ERROR_CODE=1
+_Static_assert(ERROR_CODE, "Hata")
 
 //Defining node of the list which contains a pointer to data to be added and a pointer to next node of the list.
 
