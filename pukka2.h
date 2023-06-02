@@ -8,8 +8,9 @@
 
 #define STRINGIFY_HELPER(x) #x
 
-#define createPukkaList(T) strcmp(STRINGIFY_HELPER(T), "int") ? ERROR_CODE=0 : ERROR_CODE=1
-_Static_assert(ERROR_CODE, "Hata")
+#define createPukkaList(T) strcmp(STRINGIFY_HELPER(T), "int") ? createPukkaListError() : createPukkaListInternal(sizeof(T))
+
+_Static_assert(func(A), "Hata");
 
 //Defining node of the list which contains a pointer to data to be added and a pointer to next node of the list.
 
@@ -41,14 +42,6 @@ pukkaList* createPukkaListInternal(size_t element_size) {
 	pl->length = 0;
 
 	return pl; //Return the list.
-
-}
-
-pukkaList* createPukkaListError(int line) {
-
-	printf("Error in line %d: \'You must use a defined data type!\'\n", line);
-	getch();
-	return NULL;
 
 }
 
