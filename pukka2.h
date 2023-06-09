@@ -9,8 +9,7 @@
 
 #define STRINGIFY_HELPER(x) #x
 
-#define createPukkaList(T) strcmp(STRINGIFY_HELPER(T), "int") ? sizeof(struct { _Static_assert(strcmp(STRINGIFY_HELPER(T), "int") == 0, "Hata"); int i; }) \
-															  : createPukkaListInternal(sizeof(T))
+#define createPukkaList(T) _Static_assert(T>0, "Error")
 
 //Defining node of the list which contains a pointer to data to be added and a pointer to next node of the list.
 
@@ -43,10 +42,6 @@ pukkaList* createPukkaListInternal(size_t element_size) {
 
 	return pl; //Return the list.
 
-}
-
-pukkaList* createPukkaListError() {
-	return NULL;
 }
 
 #endif // _PUKKA_H

@@ -9,7 +9,7 @@ struct x {
 
 int main () {
 
-    pukkaList* sample = createPukkaList();
+    pukkaList* sample = createPukkaList(0);
 
     printf("%d\n", sample->element_size);
     printf("%d\n", sample->length);
