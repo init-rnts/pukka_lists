@@ -3,9 +3,19 @@
 #define _PUKKA_H
 
 #include <stdlib.h>
+#include <string.h>
 
-#define createPukkaList(T) createPukkaListInternal(sizeof(T))
-#define pushPukka(X, Y) _Generic((Y), int: pushPukkai, default: pushPukkaDefault)(X, Y)
+#define createPukkaList(T) createPukkaListInternal(sizeof(T)) 
+//#define pushPukka(X, Y) _Generic(&(Y), int*: pushPukkai, default: pushPukkaDefault)(X, &Y)
+
+#define pushPukka(X, Y) \
+    do { \
+		_Generic((Y), \
+            int: pushPukkai,\
+            default: pushPukkaDefault \
+		)((X), *(Y));\
+    } while(0)
+
 
 //Defining node of the list which contains a pointer to data to be added and a pointer to next node of the list.
 
@@ -78,12 +88,15 @@ void pushPukkai(pukkaList* pl, int i) {
 
 void pushPukkaDefault(pukkaList* pl, void* data) {
 
-	//Allocate memory for the new node and then define the node's data member as the pointer which given as argument  
-	//and define the node's nextNode member as null
+	//Allocate memory for the new node and the node's data member and define the node's nextNode member as null
 
 	struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
-	newNode->data = data;
+	newNode->data = malloc(pl->element_size);
 	newNode->nextNode = NULL;
+
+	//Copy the content of the data given as argument to memory which allocated for new node's data member.
+
+	memcpy(newNode->data, data, pl->element_size);
 
 	//Define the nextNode member of the pukkalist's end node as created node.Then add the created new node at 
 	//the end of the given pukkalist. 
