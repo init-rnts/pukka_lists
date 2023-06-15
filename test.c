@@ -9,7 +9,7 @@ typedef struct x {
 
 int main () {
 
-    pukkaList* sample = createPukkaList(x);
+    pukkaList* sample = createPukkaList(int);
 
     printf("%d\n", sample->element_size);
     printf("%d\n", sample->length);
@@ -27,10 +27,15 @@ int main () {
     printf("%p\n", sample->headNode);
     printf("%p\n\n", sample->endNode);
 
-    x* xyz = sample->headNode->data;
+    int i = *(int*)(sample->endNode->data);
+
+    printf("%d\n\n", i);
+/*
+    x* xyz = sample.headNode->data;
 
     printf("%d\n", xyz->i);
     printf("%lf\n", xyz->d);
+*/
 /*
     pushPukka(sample, 15);
     

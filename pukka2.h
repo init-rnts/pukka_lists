@@ -5,16 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define createPukkaList(T) createPukkaListInternal(sizeof(T)) 
+#define createPukkaList(T) createPukkaListInternal(sizeof(T))
+
 //#define pushPukka(X, Y) _Generic(&(Y), int*: pushPukkai, default: pushPukkaDefault)(X, &Y)
 
-#define pushPukka(X, Y) \
-    do { \
-		_Generic((Y), \
-            int: pushPukkai,\
-            default: pushPukkaDefault \
-		)((X), *(Y));\
-    } while(0)
+#define pushPukka(X, Y) do {__typeof__(Y) temp = Y; pushPukkaInternal(X, &temp);} while(0)
 
 
 //Defining node of the list which contains a pointer to data to be added and a pointer to next node of the list.
@@ -86,7 +81,7 @@ void pushPukkai(pukkaList* pl, int i) {
 
 }
 
-void pushPukkaDefault(pukkaList* pl, void* data) {
+void pushPukkaInternal(pukkaList* pl, void* data) {
 
 	//Allocate memory for the new node and the node's data member and define the node's nextNode member as null
 
