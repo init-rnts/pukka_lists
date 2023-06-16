@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
-#include "pukka2.h"
+#include "pukka3.h"
 
 typedef struct x {
     int i;
@@ -9,38 +9,95 @@ typedef struct x {
 
 int main () {
 
-    pukkaList* sample = createPukkaList(int);
+    pukkaList* sample = createPukkaList(x);
 
-    printf("%d\n", sample->element_size);
-    printf("%d\n", sample->length);
+    printf("Liste olusturuldu...\n");
     printf("%p\n", sample->headNode);
-    printf("%p\n\n", sample->endNode);
-
-    x abc = {15, 5.2};
-
-    printf("%p\n\n", &abc);
-
-    pushPukka(sample, 15);
-
+    printf("%p\n", sample->endNode);
     printf("%d\n", sample->element_size);
-    printf("%d\n", sample->length);
+    printf("%d\n\n", sample->length);
+
+    x firstref = {5, 5.1};
+
+    pushPukka(sample, firstref);
+
+    printf("Listenin ilk elemani eklendi...\n");
     printf("%p\n", sample->headNode);
-    printf("%p\n\n", sample->endNode);
+    printf("%p\n", sample->endNode);
+    printf("%d\n", sample->element_size);
+    printf("%d\n\n", sample->length);
 
-    int i = *(int*)(sample->endNode->data);
+    x medref = {10, 10.1};
 
-    printf("%d\n\n", i);
-/*
-    x* xyz = sample.headNode->data;
+    pushPukka(sample, medref);
 
-    printf("%d\n", xyz->i);
-    printf("%lf\n", xyz->d);
-*/
-/*
-    pushPukka(sample, 15);
-    
-    printf("%d\n\n", *(int*)(sample->endNode->data));
-*/
+    printf("Listenin ikinci elemani eklendi...\n");
+    printf("%p\n", sample->headNode);
+    printf("%p\n", sample->endNode);
+    printf("%d\n", sample->element_size);
+    printf("%d\n\n", sample->length);
+
+    x lastref = {15, 15.1};
+
+    pushPukka(sample, lastref);
+
+    printf("Listenin ucuncu elemani eklendi...\n");
+    printf("%p\n", sample->headNode);
+    printf("%p\n", sample->endNode);
+    printf("%d\n", sample->element_size);
+    printf("%d\n\n", sample->length);
+
+    x* first = (x*)(sample->headNode->data);
+    x* last = (x*)(sample->endNode->data);
+
+    printf("Listenin ilk elemani ve son elemani aktarildi...\n");
+    printf("%d\n", first->i);
+    printf("%lf\n", first->d);
+    printf("%d\n", last->i);
+    printf("%lf\n\n\n", last->d);
+
+    popPukka(sample);
+
+    printf("Listenin ucuncu elemani atildi...\n");
+    printf("%p\n", sample->headNode);
+    printf("%p\n", sample->endNode);
+    printf("%d\n", sample->element_size);
+    printf("%d\n\n", sample->length);
+
+    first = (x*)(sample->headNode->data);
+    last = (x*)(sample->endNode->data);
+
+    printf("Listenin ilk elemani ve son elemani aktarildi...\n");
+    printf("%d\n", first->i);
+    printf("%lf\n", first->d);
+    printf("%d\n", last->i);
+    printf("%lf\n\n\n", last->d);
+
+    popPukka(sample);
+
+    printf("Listenin ikinci elemani atildi...\n");
+    printf("%p\n", sample->headNode);
+    printf("%p\n", sample->endNode);
+    printf("%d\n", sample->element_size);
+    printf("%d\n\n", sample->length);
+
+    first = (x*)(sample->headNode->data);
+    last = (x*)(sample->endNode->data);
+
+    printf("Listenin ilk elemani ve son elemani aktarildi...\n");
+    printf("%d\n", first->i);
+    printf("%lf\n", first->d);
+    printf("%d\n", last->i);
+    printf("%lf\n\n\n", last->d);
+
+    popPukka(sample);
+
+    printf("Listenin birinci elemani atildi...\n");
+    printf("%p\n", sample->headNode);
+    printf("%p\n", sample->endNode);
+    printf("%d\n", sample->element_size);
+    printf("%d\n\n", sample->length);
+
     getch();
     return 0;
 }

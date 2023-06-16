@@ -28,6 +28,8 @@ typedef struct PUKKA_LIST {
 	struct Node* endNode; //Declaration of end node of nodes of the list.
     size_t element_size;
 	unsigned int length;
+	struct PUKKA_LIST* this;
+	void (*push)(int i) : pushPukkai(this, i); 
 
 } pukkaList;
 
