@@ -3,8 +3,9 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
-#define createPukkaList(T) createPukkaListInternal(sizeof(T))
+#define createPukkaList(T) _Generic((T), char* : createPukkaListInternalString, default : createPukkaListInternal)(sizeof(T))
 
 #define pushPukka(X, Y) do {__typeof__(Y) temp = Y; pushPukkaInternal(X, &temp);} while(0)
 #define addPukkaAt(X, Y, Z) do {__typeof__(Y) temp = Y; addPukkaAtInternal(X, &temp, Z);} while(0)
@@ -38,6 +39,20 @@ pukkaList* createPukkaListInternal(size_t element_size) {
 	pl->headNode = NULL;
 	pl->endNode = NULL;
 	pl->element_size = element_size;
+	pl->length = 0;
+
+	return pl; //Return the pointer of the allocated memory.
+
+}
+
+pukkaList* createPukkaListInternalString(size_t element_size) {
+
+	//Allocate memory for the list and define pointers of the list as null.
+
+	pukkaList* pl = (pukkaList*) malloc(sizeof(pukkaList));
+	pl->headNode = NULL;
+	pl->endNode = NULL;
+	pl->element_size = sizeof(char*);
 	pl->length = 0;
 
 	return pl; //Return the pointer of the allocated memory.
