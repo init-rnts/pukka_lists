@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#define createPukkaList(T) _Generic((T), char* : createPukkaListInternalString, default : createPukkaListInternal)(sizeof(T))
+#define createPukkaList(T) _Generic((T), char*: createPukkaListInternalString(), default: createPukkaListInternal(sizeof(T)))
 
 #define pushPukka(X, Y) do {__typeof__(Y) temp = Y; pushPukkaInternal(X, &temp);} while(0)
 #define addPukkaAt(X, Y, Z) do {__typeof__(Y) temp = Y; addPukkaAtInternal(X, &temp, Z);} while(0)
@@ -45,7 +45,7 @@ pukkaList* createPukkaListInternal(size_t element_size) {
 
 }
 
-pukkaList* createPukkaListInternalString(size_t element_size) {
+pukkaList* createPukkaListInternalString() {
 
 	//Allocate memory for the list and define pointers of the list as null.
 
